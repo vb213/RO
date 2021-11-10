@@ -37,7 +37,6 @@ static int fpsign(uint32_t number)
 static int fpmantissa(uint32_t number)
 {
     uint32_t mask = 0x007fffff;
-    printf("%d\n", mask);
     int mantissa = number & mask;
     return mantissa;
 }

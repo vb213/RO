@@ -3,16 +3,19 @@
  * Institut fuer Technische Informatik (ITEC) 
  * Vorlesung Rechnerorganisation
  *
- * Autor: 
- * Matrikelnummer:
- * Tutoriumsnummer:
- * Name des Tutors:
+ * Autor: Valentin Barner   
+ * Matrikelnummer: 2360523
+ * Tutoriumsnummer: 14
+ * Name des Tutors: Jonas Heinle
  *
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+
+
+const int alphabetSize = 26;
 
 
 /**
@@ -22,11 +25,13 @@
  */
 static unsigned int stringLength(char* text)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    size_t length = 0;
+    while(*text != '\0') {
+        length++;
+        text++;
+    }
+
+    return length;
 }
 
 
@@ -56,16 +61,31 @@ static char* createBuffer(char* text)
  */
 static char rotateChar(char c, int n)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    char alphabetStart;
+
+    if(c >= 'a' && c <= 'z'){ 
+        // if c is a lowercase, the alphabet starts at 'a'
+        alphabetStart = 'a';
+    } else if (c >= 'A' && c <= 'Z') {
+        // if c is a capital letter, the alphabet starts at 'A'
+        alphabetStart = 'A';
+    } else {
+        //c is not a letter
+        return c;
+    }
+
+    char result =  alphabetStart + (c - alphabetStart + n) % alphabetSize;
+
+    return result;
+
+
 }
 
 
 /**
  * Returns the crypted string of text.
+ *
+ * encrypt("Valentin Barner", 2360523) returns "Ejunwcrw Kjawna"
  *
  * \param text to encrypt.
  * \param key
@@ -73,11 +93,14 @@ static char rotateChar(char c, int n)
  */
 static char* encrypt(char* text, int key)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    char* result = createBuffer(text);
+    int i = 0;
+    while(*text != '\0') {
+        *(result + i) = rotateChar(*text, key);
+        text++;
+        i++;
+    }
+    return result;
 }
 
 
@@ -90,11 +113,7 @@ static char* encrypt(char* text, int key)
  */
 static char* decrypt(char* crypted, int key)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    encrypt(crypted, alphabetSize - (key % alphabetSize));
 }
 
 
@@ -109,6 +128,7 @@ static char* decrypt(char* crypted, int key)
  */
 int main(int argc, char* argv[])
 {
+
     char plain[256];
     int key;
 
@@ -130,5 +150,6 @@ int main(int argc, char* argv[])
     free(crypted);
     free(decrypted);
     return 0;
+    
 }
 #endif

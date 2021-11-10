@@ -3,10 +3,10 @@
  * Institut fuer Technische Informatik (ITEC) 
  * Vorlesung Rechnerorganisation
  *
- * Autor: 
- * Matrikelnummer:
- * Tutoriumsnummer:
- * Name des Tutors:
+ * Autor: Valentin Barner
+ * Matrikelnummer: 2360523
+ * Tutoriumsnummer: 14
+ * Name des Tutors: Jonas Heinle
  *
  */
 
@@ -21,11 +21,11 @@
  */
 static int fpsign(uint32_t number)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    uint32_t mask = 1 << 31;
+
+    int result = (number & mask) >> 31;
+
+    return result;
 }
 
 /**

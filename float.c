@@ -36,11 +36,10 @@ static int fpsign(uint32_t number)
  */
 static int fpmantissa(uint32_t number)
 {
-    /************************/
-    /** put your code here **/
-    
-    
-    /************************/
+    uint32_t mask = 0x007fffff;
+    printf("%d\n", mask);
+    int mantissa = number & mask;
+    return mantissa;
 }
 
 /**
@@ -51,11 +50,12 @@ static int fpmantissa(uint32_t number)
  */
 static int fpexponent(uint32_t number)
 {
-    /************************/
-    /** put your code here **/
+    const int bias = 127;
+    uint32_t mask = 11111111;
+
+    int characteristic = (number >> 23) & mask;
+    return characteristic - bias;
     
-    
-    /************************/
 }
 
 #ifndef TEST
@@ -82,6 +82,8 @@ int main(int argc, char* argv[])
     printf("Vorzeichen: %d\n", fpsign(numberuint));
     printf("Mantisse:   %d\n", fpmantissa(numberuint));
     printf("Exponent:   %d\n", fpexponent(numberuint));
+
+    
     
     return 0;
 }
